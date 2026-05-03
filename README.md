@@ -16,7 +16,8 @@ This project focuses on simulating flood risks in the **Nakhon Pathom Factory ar
 - [Key Features](#-key-features)
 - [Tech Stack](#-tech-stack)
 - [Prerequisites](#-prerequisites)
-- [Installation](#-installation)
+- [How to Try (Closed Beta)](#-how-to-try-closed-beta)
+- [Installation (For Developers)](#-installation-for-developers)
 - [How to Use](#-how-to-use)
 - [Screenshots](#-screenshots)
 - [Team](#-team)
@@ -55,10 +56,19 @@ To run or develop this application, you need a device that meets the following *
 * **Network:** Stable Internet Connection (Required for VPS & Tile loading).
 * **Service:** Device must support [Google Play Services for AR](https://developers.google.com/ar/devices).
 
-## 📥 Installation
+## 🚀 How to Try (Closed Beta)
+If you want to experience the application directly on your device without setting up the Unity Editor, you can join the **Google Play Closed Beta Test**:
+
+1. **Request Access:** Contact the developer via the social media links provided on my [GitHub Profile](https://github.com/IGDhananjaya).
+2. **Provide Email:** Send your Google Play email address so you can be registered as a designated tester.
+3. **Install:** Once added to the tester list, you will receive an exclusive link to download and install the app safely via the Google Play Store.
+
+## 📥 Installation (For Developers)
+If you want to explore the source code or build the project yourself:
+
 1.  **Clone the Repo:**
     ```bash
-    git clone https://github.com/IGDhananjaya/AR_Geospatial_Flood.git
+    git clone [https://github.com/IGDhananjaya/AR_Geospatial_Flood.git](https://github.com/IGDhananjaya/AR_Geospatial_Flood.git)
     ```
 2.  **Open in Unity:**
     Open the project folder using Unity Hub.
@@ -66,11 +76,11 @@ To run or develop this application, you need a device that meets the following *
     * Go to `Edit > Project Settings > XR Plug-in Management > ARCore Extensions`.
     * Insert your **Google Cloud API Key** (must have ARCore API & Map Tiles API enabled).
     * Open the `CesiumGeoreference` object in the hierarchy and input your **Cesium Ion Token**.
-4.  **Build to Android:**
-    * Connect your supported Android device.
+4.  **Build to Android (APK):**
     * Go to `File > Build Settings`.
     * Switch platform to **Android**.
-    * Click **Build and Run**.
+    * Click **Build** to generate the `.apk` file.
+    * Transfer the generated `.apk` to your Android device, enable "Install from Unknown Sources", and install it.
 
 ## 🎮 How to Use
 1.  **Launch the App:** Allow Camera and Location permissions (Precision Location is required).
@@ -83,16 +93,16 @@ To run or develop this application, you need a device that meets the following *
 
 ## 📸 Screenshots
 <img src="ImageGithub/HomeScreen.jpeg" width="200" alt="Main Menu"> <img src="ImageGithub/GuideScreen.jpeg" width="200" alt="Guide Menu"> <img src="ImageGithub/Tampilan Utama Aplikasi 1.jpeg" width="200" alt="Scan Simulation"> 
-> **Demo Video:** Watch the application in action [here](https://youtube.com/shorts/lTdHx6UdDMc?feature=share).
 
+> **Demo Video:** Watch the application in action [here](https://youtube.com/shorts/lTdHx6UdDMc?feature=share).
 
 ## 👥 Team
 **Developer**
 * **I Gede Dhananjaya** - *D4 Teknologi Rekayasa Perangkat Lunak, UNDIKSHA*
 
 **Supervisors**
-* Dr. Pariwate Varnakovida (KMUTT KGEO)
-* Dr. I Gede Partha Sindu, M.Pd. (UNDIKSHA)
+* Kadek Yota Ernanda Aryanto, S.Kom., M.T., Ph.D. (UNDIKSHA)
+* Dr. I Gede Partha Sindu, S.Pd., M.Pd. (UNDIKSHA)
 
 ---
-*This project is submitted as a Final Year Project (Skripsi/TA) 2025.*
+*This project is submitted as a Final Year Project (Skripsi/TA) 2026.*
