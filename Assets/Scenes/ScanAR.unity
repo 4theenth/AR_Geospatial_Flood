@@ -722,19 +722,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb9a09eba0d104c42a2cc647e8abf10a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  titleText: {fileID: 472789559}
-  rainCategoryText: {fileID: 1313330516}
+  rainInfoText: {fileID: 0}
   demText: {fileID: 43416675}
   ndviText: {fileID: 166616294}
   ndwiText: {fileID: 185937155}
   tpiText: {fileID: 352001239}
   floodRiskText: {fileID: 727974636}
+  predictionText: {fileID: 0}
   apiUrl: https://flood-api-584316128379.asia-southeast1.run.app/data
   refreshInterval: 60
   floodSimulator: {fileID: 608961219}
   rainDropdownHandler: {fileID: 1279437089}
   uiManager: {fileID: 598665358}
   floodVisualizer: {fileID: 52292028}
+  scsLow: 12.7
+  scsMedium: 13.8
+  scsHigh: 34.6
 --- !u!1 &176739056
 GameObject:
   m_ObjectHideFlags: 0
@@ -2314,12 +2317,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   riseDuration: 3
   floodObject: {fileID: 0}
-  lightHeightCm: 0
+  lowHeightCm: 0
   mediumHeightCm: 10
-  heavyHeightCm: 40
+  highHeightCm: 80
   veryHeavyHeightCm: 80
   smoothness: 0.15
   heightOffset: 0
+  waveController: {fileID: 0}
 --- !u!64 &608961220
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4353,10 +4357,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _showCreditsOnScreen: 1
   _tilesetSource: 1
-  _url: https://tile.googleapis.com/v1/3dtiles/root.json?key=AIzaSyBfYuTxBqIYKGwsq5n5lrZ1YvgCXvXu6Ow
+  _url: https://tile.googleapis.com/v1/3dtiles/root.json?key=
   _ionAssetID: 0
   _ionAccessToken: 
-  _ionServer: {fileID: 0}
+  _ionServer: {fileID: 11400000, guid: 60b55ec1b3ecdee4b9987f1738c4e602, type: 2}
   _maximumScreenSpaceError: 16
   _preloadAncestors: 1
   _preloadSiblings: 1
@@ -7066,6 +7070,8 @@ MonoBehaviour:
   centerRadiusMultiplier: 1.5
   debugDraw: 1
   autoFlood: 0
+  rainInfoManager: {fileID: 0}
+  shelterProximity: {fileID: 0}
   player: {fileID: 1773673278}
   uiManager: {fileID: 598665358}
   floodSimulator: {fileID: 0}
