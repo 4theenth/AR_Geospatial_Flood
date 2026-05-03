@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro; // pakai TMP namespace
 
 public class RainDropdownHandlerSmooth_TMP : MonoBehaviour
@@ -6,6 +6,8 @@ public class RainDropdownHandlerSmooth_TMP : MonoBehaviour
     [Header("References")]
     public TMP_Dropdown rainDropdown;        // TMP Dropdown UI
     public summonSmooth floodSimulator;      // Script animasi banjir
+    public RainInfoManager_RealData rainInfoManager; // UI panel prediksi SCS-CN
+
 
     private bool isManualMode = false;
 
@@ -67,6 +69,12 @@ public class RainDropdownHandlerSmooth_TMP : MonoBehaviour
             default:
                 floodSimulator.StopSummon(); // hentikan animasi jika tidak cocok
                 break;
+        }
+
+        // 🔹 TAMBAHAN SAJA (TIDAK MENGUBAH LOGIKA LAMA)
+        if (rainInfoManager != null)
+        {
+            rainInfoManager.UpdateSCSCNPrediction(selected);
         }
 
         UpdateDropdownColor(rainDropdown.value);

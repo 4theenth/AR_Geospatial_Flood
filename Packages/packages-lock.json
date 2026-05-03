@@ -20,7 +20,7 @@
         "com.unity.xr.arcore": "4.1.5",
         "com.unity.xr.arkit": "4.1.5"
       },
-      "hash": "6dfba4a41f4aef634ea66e24c214c93c963faea4"
+      "hash": "f2fa041ed9ee61f3cef6710ed2aee69ace4d384b"
     },
     "com.unity.burst": {
       "version": "1.8.21",
@@ -51,6 +51,17 @@
       "depth": 1,
       "source": "registry",
       "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.formats.alembic": {
+      "version": "2.3.4",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.timeline": "1.0.0",
+        "com.unity.modules.cloth": "1.0.0",
+        "com.unity.modules.unityanalytics": "1.0.0"
+      },
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.rider": {
@@ -218,20 +229,20 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.arcore": {
-      "version": "5.2.0",
+      "version": "5.2.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.xr.core-utils": "2.1.0",
         "com.unity.xr.management": "4.0.1",
-        "com.unity.xr.arfoundation": "5.2.0",
+        "com.unity.xr.arfoundation": "5.2.2",
         "com.unity.modules.androidjni": "1.0.0",
         "com.unity.modules.unitywebrequest": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.arfoundation": {
-      "version": "5.2.0",
+      "version": "5.2.2",
       "depth": 1,
       "source": "registry",
       "dependencies": {

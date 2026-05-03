@@ -8,7 +8,8 @@ public class summonSmooth : MonoBehaviour
     [Header("Durasi Animasi Naik (detik)")]
     public float riseDuration = 3f;
 
-    [Header("Objek Flood (opsional, jika berbeda dari objek ini)")]
+    [Header("ROOT Objek Flood (Plane + efek air)")]
+    [Tooltip("Isi dengan parent yang berisi Plane visual air")]
     public GameObject floodObject;
 
     [Header("Ketinggian Air per Intensitas (cm)")]
@@ -21,8 +22,9 @@ public class summonSmooth : MonoBehaviour
     [Range(0f, 1f)] public float smoothness = 0.15f;
 
     [Header("Offset Manual (meter)")]
-    [Tooltip("Untuk menurunkan posisi air agar tidak bertumpuk dengan permukaan AR")]
     public float heightOffset = 0f;
+
+    [SerializeField] private gelombang waveController;
 
     private Vector3 initialLocalPosition;
     private float currentY;
@@ -32,18 +34,18 @@ public class summonSmooth : MonoBehaviour
 
     void Start()
     {
-        SetToGround();
+        // ❌ Tidak disarankan untuk AR Geospatial
+        // SetToGround();
 
-        // ambil posisi lokal awal objek air (polyshape)
         initialLocalPosition = transform.localPosition + Vector3.up * heightOffset;
         currentY = initialLocalPosition.y;
         targetY = initialLocalPosition.y + (lowHeightCm / 100f);
 
+        // Flood mulai dalam keadaan mati
         if (floodObject != null)
-            floodObject.SetActive(true);
+            floodObject.SetActive(false);
 
         initialized = true;
-        Debug.Log($"[summonSmooth] Initialized at localY={initialLocalPosition.y:F2}");
     }
 
     void Update()
@@ -51,66 +53,91 @@ public class summonSmooth : MonoBehaviour
         if (!initialized || !rising) return;
 
         currentY = Mathf.Lerp(currentY, targetY, Time.deltaTime / smoothness);
-        transform.localPosition = new Vector3(initialLocalPosition.x, currentY, initialLocalPosition.z);
+
+        transform.localPosition = new Vector3(
+            initialLocalPosition.x,
+            currentY,
+            initialLocalPosition.z
+        );
 
         if (Mathf.Abs(currentY - targetY) < 0.001f)
         {
-            transform.localPosition = new Vector3(initialLocalPosition.x, targetY, initialLocalPosition.z);
+            transform.localPosition = new Vector3(
+                initialLocalPosition.x,
+                targetY,
+                initialLocalPosition.z
+            );
+
             rising = false;
             OnFloodAnimationFinished?.Invoke();
         }
     }
 
-    // Ubah tinggi air secara langsung (meter)
+    // =============================
+    // UBAH KETINGGIAN AIR
+    // =============================
     public void UpdateFloodHeight(float heightMeters)
     {
         transform.localPosition = initialLocalPosition;
         currentY = initialLocalPosition.y;
         targetY = initialLocalPosition.y + heightMeters;
-        rising = true;
 
-        Debug.Log($"[summonSmooth] UpdateFloodHeight: {heightMeters:F2}m → targetY={targetY:F2}");
+        rising = true;
     }
 
+    // =============================
+    // SET INTENSITAS HUJAN
+    // =============================
     public void SetFloodIntensity(string intensity)
     {
         float riseHeight = 0f;
-        switch (intensity.ToLower().Replace(" ", "").Replace("-", ""))
+
+        string key = intensity.ToLower().Replace(" ", "").Replace("-", "");
+
+        switch (key)
         {
-            case "low": riseHeight = lowHeightCm / 100f; break;
-            case "medium": riseHeight = mediumHeightCm / 100f; break;
-            case "high": riseHeight = highHeightCm / 100f; break;
-            default: riseHeight = lowHeightCm / 100f; break;
+            case "low":
+                riseHeight = lowHeightCm / 100f;
+                break;
+
+            case "medium":
+                riseHeight = mediumHeightCm / 100f;
+                break;
+
+            case "high":
+                riseHeight = highHeightCm / 100f;
+                break;
+
+            default:
+                riseHeight = lowHeightCm / 100f;
+                break;
         }
+
         UpdateFloodHeight(riseHeight);
+
+        if (waveController != null)
+            waveController.SetWaveIntensity(key);
     }
 
-
-    private void SetToGround()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position + Vector3.up, Vector3.down, out hit, 5f))
-        {
-            transform.localPosition = transform.parent.InverseTransformPoint(hit.point);
-            Debug.Log($"[summonSmooth] SetToGround hit at {hit.point.y:F2}");
-        }
-        else
-        {
-            Debug.LogWarning("[summonSmooth] No ground hit detected. Using current local position.");
-        }
-    }
-
+    // =============================
+    // AKTIFKAN BANJIR
+    // =============================
     public void StartSummon()
     {
         if (floodObject != null)
             floodObject.SetActive(true);
-        Debug.Log("[summonSmooth] Flood started manually.");
+
+        rising = true;
     }
 
+    // =============================
+    // MATIKAN BANJIR
+    // =============================
     public void StopSummon()
     {
+        rising = false;
+
         if (floodObject != null)
             floodObject.SetActive(false);
-        Debug.Log("[summonSmooth] Flood stopped manually.");
     }
 }

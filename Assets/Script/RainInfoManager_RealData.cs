@@ -13,6 +13,12 @@ public class RainInfoManager_RealData : MonoBehaviour
     public TMP_Text ndwiText;
     public TMP_Text tpiText;
     public TMP_Text floodRiskText;
+    //public TMP_Text predictionTitleText;
+    //public TMP_Text predictionValueText;
+
+    [Header("UI Text")]
+    public TMP_Text predictionText;
+
 
     [Header("API Settings")]
     [Tooltip("Contoh: https://flood-api-xxxx.a.run.app/data")]
@@ -25,6 +31,11 @@ public class RainInfoManager_RealData : MonoBehaviour
     public UIManager uiManager;
     public FloodVisualizerHybrid floodVisualizer;
 
+    [Header("SCS-CN Height Prediction (mm)")]
+    public float scsLow = 12.7f;
+    public float scsMedium = 13.8f;
+    public float scsHigh = 34.6f;
+
     private float latitude = -8.1153f;
     private float longitude = 115.0884f;
     private bool locationReady = false;
@@ -35,6 +46,13 @@ public class RainInfoManager_RealData : MonoBehaviour
         Debug.Log("[RainInfo] 🌦️ Initializing location...");
         ShowWaitingMessage();
         StartCoroutine(InitializeLocation());
+        //if (predictionTitleText != null)
+        //{
+        //    predictionTitleText.text = "Height Prediction (SCS-CN)";
+        //}
+
+        // Default sesuai dropdown awal (Low)
+        UpdateSCSCNPrediction("Low");
     }
 
     // ==========================================================
@@ -231,6 +249,63 @@ public class RainInfoManager_RealData : MonoBehaviour
             default: return Color.white;
         }
     }
+
+    /// <summary>
+    /// Called when user changes flood intensity
+    /// Expected input: Low / Medium / High
+    /// </summary>
+    public void UpdateSCSCNPrediction(string intensity)
+    {
+        if (predictionText == null) return;
+
+        string key = intensity.ToLower();
+        float value;
+
+        switch (key)
+        {
+            case "low":
+                value = scsLow;
+                intensity = "Low";
+                break;
+
+            case "medium":
+                value = scsMedium;
+                intensity = "Medium";
+                break;
+
+            case "high":
+                value = scsHigh;
+                intensity = "High";
+                break;
+
+            default:
+                value = scsLow;
+                intensity = "Low";
+                break;
+        }
+
+        // 👇 SATU TMP, DENGAN LINE BREAK DINAMIS
+        predictionText.text =
+            "Height Prediction (SCS-CN):\n" +
+            $"{intensity} : {value:F1} mm";
+    }
+
+    public void ShowSCSCNPrediction(string intensity)
+    {
+        if (predictionText == null) return;
+
+        predictionText.gameObject.SetActive(true);
+        UpdateSCSCNPrediction(intensity);
+    }
+
+    public void HideSCSCNPrediction()
+    {
+        if (predictionText == null) return;
+
+        predictionText.gameObject.SetActive(false);
+    }
+
+
 }
 
 // ==========================================================

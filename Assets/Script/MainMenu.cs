@@ -39,6 +39,17 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("ScanARKampusShorted");
     }
 
+    public void ScanARDalung()
+    {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayUIClick(); // bunyi klik tombol
+            AudioManager.Instance.StopBackground(); // hentikan musik
+        }
+
+        SceneManager.LoadScene("ScanARDalung");
+    }
+
     public void ScanARKampusTitikShelter()
     {
         SceneManager.LoadScene("ScanARKampusTitikShelter");

@@ -17,6 +17,8 @@ public class FloodProximityManager : MonoBehaviour
     public float centerRadiusMultiplier = 1.5f;
     public bool debugDraw = true;
     public bool autoFlood = false;
+    public RainInfoManager_RealData rainInfoManager; // UI prediksi SCS-CN
+
 
     [Header("References")]
     public ShelterProximity shelterProximity; // referensi ke script ShelterProximity
@@ -78,15 +80,15 @@ public class FloodProximityManager : MonoBehaviour
         else if (!inside && isInFloodArea)
             ExitFloodArea();
         // --- Tambahan: Jika pengguna sedang di shelter, abaikan flood zone ---
-        if (shelterProximity != null && shelterProximity.IsNearShelter())
-        {
-            if (uiManager != null && uiManager.rainDropdown != null && uiManager.rainDropdown.activeSelf)
-            {
-                uiManager.rainDropdown.SetActive(false);
-                Debug.Log("[FloodProximity] 🏠 Shelter priority: hiding dropdown.");
-            }
-            return; // hentikan deteksi flood untuk frame ini
-        }
+        //if (shelterProximity != null && shelterProximity.IsNearShelter())
+        //{
+        //    if (uiManager != null && uiManager.rainDropdown != null && uiManager.rainDropdown.activeSelf)
+        //    {
+        //        uiManager.rainDropdown.SetActive(false);
+        //        Debug.Log("[FloodProximity] 🏠 Shelter priority: hiding dropdown.");
+        //    }
+        //    return; // hentikan deteksi flood untuk frame ini
+        //}
 
         isInFloodArea = inside;
     }
@@ -106,6 +108,13 @@ public class FloodProximityManager : MonoBehaviour
             floodSimulator.gameObject.SetActive(true);
             floodSimulator.StartSummon();
             floodSimulator.SetFloodIntensity("Light");
+            // 🔹 Tampilkan prediksi SCS-CN saat masuk zona banjir
+            if (rainInfoManager != null)
+            {
+                // Gunakan intensitas default / aktif
+                rainInfoManager.ShowSCSCNPrediction("Low");
+            }
+
             Debug.Log("[FloodProximity] 🌊 Flood animation started (Light).");
         }
         else
@@ -145,6 +154,13 @@ public class FloodProximityManager : MonoBehaviour
             AudioManager.Instance.StopFloodSound();
             Debug.Log("[FloodProximity] 🔇 Flood sound stopped.");
         }
+
+        // 🔹 Sembunyikan prediksi SCS-CN saat keluar zona banjir
+        if (rainInfoManager != null)
+        {
+            rainInfoManager.HideSCSCNPrediction();
+        }
+
     }
 
     public bool IsInFloodArea() => isInFloodArea;

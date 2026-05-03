@@ -22,15 +22,31 @@ public class ShelterInfoManager : MonoBehaviour
     /// <summary>
     /// Dipanggil oleh ShelterProximity ketika user berada dalam radius shelter
     /// </summary>
-    public void UpdateShelterInfo(Transform shelter, string shelterName, float distance, string status)
+    public void UpdateShelterInfo(
+        Transform shelter,
+        string shelterName,
+        float distance,
+        string status,
+        bool isNearestMode
+    )
     {
         if (titleText == null || distanceText == null || statusText == null) return;
 
         currentShelter = shelter;
 
-        titleText.text = $"🏠 {shelterName}";
+        if (isNearestMode)
+            titleText.text = "🏠 Nearest Shelter";
+        else
+            titleText.text = $"🏠 {shelterName}";
+
         distanceText.text = $"Distance: {distance:F1} m";
         statusText.text = $"Status: {status}";
+    }
+
+    // Versi lama (biar kompatibel dengan script lama seperti ShelterProximity)
+    public void UpdateShelterInfo(Transform shelter, string shelterName, float distance, string status)
+    {
+        UpdateShelterInfo(shelter, shelterName, distance, status, false);
     }
 
     /// <summary>

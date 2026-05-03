@@ -62,19 +62,7 @@ public class ShelterProximity : MonoBehaviour
         isNearShelter = true;
         Debug.Log("[ShelterProximity] Pengguna masuk area shelter.");
 
-        uiManager?.ShowShelterInfoPanel();
-
-        if (shelterInfoManager != null && nearestShelter != null)
-        {
-            float dist = Vector3.Distance(userCamera.position, nearestShelter.position);
-            shelterInfoManager.UpdateShelterInfo(
-                nearestShelter,
-                nearestShelter.name,
-                dist,
-                "Available"
-            );
-            shelterInfoManager.SetReferences(userCamera);
-        }
+        // ❌ UI sekarang dihandle oleh NearestShelterTracker
 
         if (arrowToShelter != null && !arrowToShelter.activeSelf)
             arrowToShelter.SetActive(true);
@@ -85,8 +73,8 @@ public class ShelterProximity : MonoBehaviour
         isNearShelter = false;
         Debug.Log("[ShelterProximity] Pengguna keluar area shelter.");
 
-        uiManager?.HideShelterInfoPanel();
-        shelterInfoManager?.ClearShelterInfo();
+        // ❌ JANGAN SEMBUNYIKAN PANEL
+        // ❌ JANGAN CLEAR INFO
 
         if (arrowToShelter != null)
             arrowToShelter.SetActive(false);
