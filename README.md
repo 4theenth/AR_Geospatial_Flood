@@ -94,7 +94,7 @@ If you want to explore the source code or build the project yourself:
 ## 📸 Screenshots
 <img src="ImageGithub/HomeScreen.jpeg" width="200" alt="Main Menu"> <img src="ImageGithub/GuideScreen.jpeg" width="200" alt="Guide Menu"> <img src="ImageGithub/Tampilan Utama Aplikasi 1.jpeg" width="200" alt="Scan Simulation"> 
 
-> **Demo Video:** Watch the application in action [here]([https://youtube.com/shorts/tYUyucNBaCs?feature=share]).
+> **Demo Video:** Watch the application in action [here](https://youtube.com/shorts/tYUyucNBaCs?feature=share).
 
 ## 👥 Team
 **Developer**
